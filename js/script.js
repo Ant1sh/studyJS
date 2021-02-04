@@ -1,6 +1,6 @@
-"use strict";
-let money = prompt("Ваш месячный доход?", 300000);
-let income = "фриланс";
+'use strict';
+let money = +prompt('Ваш месячный доход?', 300000);
+let income = 'фриланс';
 let mission = 900000;
 let period = 7;
 let addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую','Квартплата, проездной, кредит');
@@ -31,21 +31,21 @@ console.log(typeof money);
 console.log(typeof addExpenses);
 console.log(typeof deposit);
 console.log(typeof money, income, deposit);
-console.log("Cумма всех обязательных расходов за месяц: " + getExpensesMonth(7000, 3000));
-console.log(addExpenses.toLocaleLowerCase().split(", "));
-console.log("Цель будет достигнута за: " + getTargetMonth(900000, 263000) + " месяца");
-console.log("Бюджет на день: ", Math.floor(budgetDay));
+console.log(`Cумма всех обязательных расходов за месяц:  + ${getExpensesMonth(amount1, amount2)}`);
+console.log(addExpenses.toLocaleLowerCase().split(', '));
+console.log(`Цель будет достигнута за: ${getTargetMonth(mission, accumulatedMonth)} месяцев`);
+console.log('Бюджет на день: ', Math.floor(budgetDay));
 const getStatusIncome = function() {
    if (budgetDay >= 1200) {
-   console.log("У вас высокий уровень дохода");
+   console.log('У вас высокий уровень дохода');
  } else if (budgetDay >= 600 && budgetDay < 1200) {
-   console.log("У вас средний уровень дохода");
+   console.log('У вас средний уровень дохода');
  } else if (budgetDay < 600 && budgetDay >= 0) {
-   console.log("К сожалению у вас уровень дохода ниже среднего");
+   console.log('К сожалению у вас уровень дохода ниже среднего');
  } else if (budgetDay < 0) {
-   console.log("Что то пошло не так");
+   console.log('Что то пошло не так');
  } else {
-   console.log("ERROR");
+   console.log('ERROR');
  }
 };
 getStatusIncome();
