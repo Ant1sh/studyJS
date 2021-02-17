@@ -5,7 +5,9 @@ const isNumber = (n) => {
 };
 
 const isString = (str, comma = false) => {
-  const pattern = comma ? /^[, а-яА-ЯёЁa-zA-Z]+$/ : /^[ а-яА-ЯёЁa-zA-Z]+$/;
+  const pattern = comma
+    ? /^[, а-яА-ЯёЁa-zA-Z0-9]+$/
+    : /^[ а-яА-ЯёЁa-zA-Z0-9]+$/;
   return pattern.test(str);
 };
 
@@ -24,41 +26,38 @@ let appData = {
   expenses: {},
   addExpenses: [],
   deposit: false,
-  precentDeposit: 0, 
-  moneyDeposit: 0, 
-  mission: 50000, 
+  precentDeposit: 0,
+  moneyDeposit: 0,
+  mission: 50000,
   period: 3,
-  budget: +money, 
-  budgetDay: 0, 
+  budget: +money,
+  budgetDay: 0,
   budgetMonth: 0,
   expensesMonth: 0,
   asking: () => {
     if (confirm("Есть ли у Вас дополнительный источник заработка?")) {
-      let itemIncom = "";
+      let itemIncome = "";
       do {
-        itemIncom = prompt("Какой у вас дополнительный заработок?", "Таксую");
-      } while (!isString(itemIncom));
+        itemIncome = prompt("Какой у вас дополнительный заработок?", "Таксую");
+      } while (!isString(itemIncome));
 
-      let cashIncom = 0;
+      let cashIncome = 0;
       do {
-        cashIncom = prompt("Сколько в месяц Вы на этом зарабатываете?", 10000);
-      } while (!isNumber(cashIncom));
+        cashIncome = prompt("Сколько в месяц Вы на этом зарабатываете?", 10000);
+      } while (!isNumber(cashIncome));
 
-      appData.income[itemIncom] = +cashIncom;
+      appData.income[itemIncome] = +cashIncome;
     }
 
-    let addExpenses = "";
+    let addExpenses = '';
     do {
       addExpenses = prompt(
-        "Перечислите возможные расходы за рассчитываемый период через запятую",
+        "Перечислите возможные расходы через запятую?",
         "интернет, такси, коммуналка"
       );
     } while (!isString(addExpenses, true));
 
-    appData.addExpenses = addExpenses
-      .toLowerCase()
-      .split(",")
-      .map((val) => val.trim());
+    appData.addExpenses = addExpenses.toLowerCase().split(",").map((val) => val.trim());
     console.log("appData.addExpenses: ", appData.addExpenses);
     appData.deposit = confirm("Есть ли у вас депозит в банке?");
 
@@ -73,7 +72,7 @@ let appData = {
           n = prompt("Во сколько это обойдется?");
         } while (!isNumber(n));
         return +n;
-      })();
+      });
     }
   },
   getExpensesMonth: () => {
@@ -113,7 +112,7 @@ let appData = {
       appData.moneyDeposit = +n;
     }
   },
-  calcSavedMonye: () => {
+  calcSavedMoney: () => {
     return appData.budgetMonth * appData.period;
   },
 };
