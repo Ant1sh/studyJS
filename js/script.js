@@ -75,16 +75,15 @@ const appData = {
       if (!isNaN(appData.addExpenses)) {
         alert("Ошибка");
         return checkaddExpenses();
-      }else {
-         return !isNaN || /^\s*$/.test(!isNaN);
       }
     }
     checkaddExpenses();
 
-    appData.addExpenses =
-      appData.addExpenses.split(",") +
-      appData.addExpenses[0].toUpperCase() +
-      appData.addExpenses.slice(1);
+    appData.addExpenses = appData.addExpenses
+      .toLowerCase()
+      .split(",")
+      .map((val) => val.trim());
+    console.log("appData.addExpenses: ", appData.addExpenses);
 
     for (let i = 0; i < 2; i++) {
       let str = "";
@@ -99,26 +98,12 @@ const appData = {
         return +n;
       })();
     }
+  },
 
-    const getTarget = appData.getTargetMonth(
-      appData.mission,
-      appData.budgetMonth
-    );
-
-    if (getTarget > 0) {
-      console.log("Цель будет достигнута");
-    } else {
-      console.log("Цель будет достигнута");
-    }
-
-    console.log("Расходы за месяц " + appData.expensesMonth);
-    console.log(
-      "Цель будет достигнута за " + Math.round(getTarget) + " месяцев"
-    );
-    console.log("Наша программа включает в себя данные:");
-
-    for (let key in appData) {
-      console.log("Ключ: " + key + " значение: " + appData[key]);
+  getExpensesMonth: () => {
+    appData.expensesMonth = 0;
+    for (let elem in appData.expenses) {
+      appData.expensesMonth += appData.expenses[elem];
     }
   },
 
@@ -128,9 +113,8 @@ const appData = {
     appData.budgetDay = appData.budgetMonth / 30;
   },
 
-  getTargetMonth: function (mission, accumulatedMonth) {
-    const getTargetMonthSum = mission / accumulatedMonth;
-    return getTargetMonthSum;
+  getTargetMonth: () => {
+    return Math.ceil(appData.mission / appData.budgetMonth);
   },
 
   getStatusIncome: function () {
@@ -144,8 +128,11 @@ const appData = {
       console.log("Что то пошло не так");
     }
   },
+
   getInfoDeposit: function () {
-    appData.deposit = confirm("Есть ли у вас депозит в банке? No=Cancel");
+    appData.deposit = confirm(
+      "Есть ли у вас депозит в банке? Yes/Ok No/Cancel"
+    );
     if (appData.deposit) {
       do {
         appData.percentDeposit = +prompt("Какой годовой процент?", "10");
@@ -166,18 +153,35 @@ const appData = {
     return appData.budgetMonth * appData.period;
   },
 };
+
 appData.asking();
 appData.getInfoDeposit();
 appData.getBudget();
 appData.getStatusIncome();
 console.log(appData);
 
+
+const targetMonth = appData.getTargetMonth();
+
+console.log("Расходы за месяц: ", appData.expensesMonth);
 console.log(
-  appData.percentDeposit,
-  appData.moneyDeposit,
-  appData.calSavedMoney()
+  targetMonth >= 0
+    ? `Цель будет достигнута за: ${targetMonth} месяц(а/ев)`
+    : "Цель не будет достигнута"
 );
 
+
+console.log("Наша программа включает в себя данные: ");
+for (let elem in appData) {
+  console.log(elem, appData[elem]);
+}
+
+console.log(
+  "2) " +
+    appData.addExpenses
+      .map((val, i) => val[0].toUpperCase() + val.slice(1))
+      .join(", ")
+);
       
 
 console.log('buttonStart: ', buttonStart);
