@@ -86,10 +86,10 @@ const appData = {
     }
   },
 
-  getBudget: function () {
+  getBudget: () => {
+    // Функция возвращает Накопления за месяц (Доходы минус расходы)
     appData.budgetMonth = appData.budget - appData.expensesMonth;
-    console.log(appData.budgetMonth, appData.budget, appData.expensesMonth);
-    appData.budgetDay = appData.budgetMonth / 30;
+    appData.budgetDay = Math.floor(appData.budgetMonth / 30);
   },
 
   getTargetMonth: () => {
@@ -114,14 +114,14 @@ const appData = {
     );
     if (appData.deposit) {
       do {
-        appData.percentDeposit = +prompt("Какой годовой процент?", "10");
+        appData.percentDeposit = prompt("Какой годовой процент?", 10);
       } while (
         isNaN(parseFloat(appData.percentDeposit)) ||
         appData.percentDeposit < 0
       );
 
       do {
-        appData.moneyDeposit = +prompt("Какая сумма заложена?", "10000");
+        appData.moneyDeposit = prompt("Какая сумма заложена?", 10000);
       } while (
         isNaN(parseFloat(appData.moneyDeposit)) ||
         appData.moneyDeposit < 0
@@ -137,6 +137,7 @@ appData.asking();
 appData.getInfoDeposit();
 appData.getBudget();
 appData.getStatusIncome();
+appData.getExpensesMonth();
 console.log(appData);
 
 
@@ -161,4 +162,5 @@ console.log(
       .map((val, i) => val[0].toUpperCase() + val.slice(1))
       .join(", ")
 );
+      
       
