@@ -134,20 +134,16 @@ let appData = {
   getTargetMonth: () => {
     return targetAmount.value / appData.budgetMonth;
   },
-  getStatusIncome: () => {
-    return isNaN(appData.budgetDay)
-      ? "Упс! Где-то закралась ошибка..."
-      : appData.budgetDay < 0
-      ? "Что то пошло не так..."
-      : appData.budgetDay < 600
-      ? "К сожалению у вас уровень дохода ниже среднего"
-      : appData.budgetDay === 600
-      ? "У вас почти средний уровень дохода, но немного не хватает..."
-      : appData.budgetDay < 1200
-      ? "У вас средний уровень дохода"
-      : appData.budgetDay === 1200
-      ? "У вас почти получилось попасть в группу с высокий уровень дохода! Постарайтесь лучше!"
-      : "У вас высокий уровень дохода";
+  getStatusIncome: function () {
+    if (appData.budgetDay >= 1200) {
+      console.log("У вас высокий уровень дохода");
+    } else if (appData.budgetDay >= 600) {
+      console.log("У вас средний уровень дохода");
+    } else if (appData.budgetDay >= 0) {
+      console.log("К сожалению у вас уровень дохода ниже среднего");
+    } else {
+      console.log("Что то пошло не так");
+    }
   },
   getIfoDeposit: () => {
     if (appData.deposit) {
