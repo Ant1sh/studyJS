@@ -156,9 +156,10 @@ const appData = {
 
 appData.asking();
 appData.getInfoDeposit();
+appData.getExpensesMonth();
 appData.getBudget();
 appData.getStatusIncome();
-appData.getExpensesMonth();
+
 console.log(appData);
 
 
